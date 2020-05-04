@@ -14,14 +14,24 @@ jobs:
           configure-default-region: false
       - serverless/setup
       - run:
-          name: install
-          command: | 
+          name: install-server
+          command: |
                 cd ./server
                 npm ci
       - run:
-          name: deploy
+          name: deploy-server
           command: |
                 cd ./server
+                serverless deploy -v
+      - run:
+          name: install-client
+          command: |
+                cd ./client
+                npm ci
+      - run:
+          name: deploy-client
+          command: |
+                cd ./client
                 serverless deploy -v
 
 workflows:
