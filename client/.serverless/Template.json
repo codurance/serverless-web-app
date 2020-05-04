@@ -1,0 +1,5 @@
+{
+  "components": {
+    "myNextApplication": "/home/alasdair/.serverless/components/registry/npm/serverless-next.js@1.11.1-alpha.0/node_modules/serverless-next.js"
+  }
+}

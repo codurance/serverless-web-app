@@ -1,0 +1,17 @@
+{
+  "name": "lb7no6-um8rmve",
+  "hash": "o5mdYlh2mUE2nrbFXl5dJbHLtYyt6upDgI9+Z/1lwPc=",
+  "description": "API Lambda@Edge for Next CloudFront distribution",
+  "memory": 512,
+  "timeout": 10,
+  "code": "/home/alasdair/Codurance/serverless-web-app/client/.serverless_nextjs/api-lambda",
+  "shims": [],
+  "handler": "index.handler",
+  "runtime": "nodejs10.x",
+  "env": {},
+  "role": {
+    "arn": "arn:aws:iam::300563897675:role/lb7no6-nhrd5q"
+  },
+  "arn": "arn:aws:lambda:us-east-1:300563897675:function:lb7no6-um8rmve",
+  "region": "us-east-1"
+}
