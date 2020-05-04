@@ -15,10 +15,14 @@ jobs:
       - serverless/setup
       - run:
           name: install
-          command: npm ci
+          command: | 
+                cd ./server
+                npm ci
       - run:
           name: deploy
-          command: serverless deploy -v
+          command: |
+                cd ./server
+                serverless deploy -v
 
 workflows:
   build-and-test:
