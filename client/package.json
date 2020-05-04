@@ -13,6 +13,7 @@
     "react-dom": "16.13.1"
   },
   "devDependencies": {
-    "serverless": "^1.69.0"
+    "serverless": "^1.69.0",
+    "serverless-next.js": "^1.11.1-alpha.0"
   }
 }
