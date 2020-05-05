@@ -5,7 +5,31 @@ orbs:
   aws-cli: circleci/aws-cli@1.0.0
 
 jobs:
-  build-and-test:
+  build-server:
+    executor:
+      name: serverless/default
+    steps:
+      - checkout
+      - aws-cli/setup:
+        configure-default-region: false
+      - serverless/setup
+      - run:
+          name: install-server
+          command: |
+            cd ./server
+            npm ci
+      - run:
+          name: test-server
+          command: |
+            cd ./server
+            npm test
+      - run:
+          name: deploy-server
+          command: |
+            cd ./server
+            serverless deploy -v
+
+  build-client:
     executor:
       name: serverless/default
     steps:
@@ -13,21 +37,6 @@ jobs:
       - aws-cli/setup:
           configure-default-region: false
       - serverless/setup
-      - run:
-          name: install-server
-          command: |
-                cd ./server
-                npm ci
-      - run:
-          name: test-server
-          command: |
-                cd ./server
-                npm test
-      - run:
-          name: deploy-server
-          command: |
-                cd ./server
-                serverless deploy -v
       - run:
           name: install-client
           command: |
@@ -42,10 +51,13 @@ jobs:
           name: deploy-client
           command: |
                 cd ./client
+                pwd
                 serverless deploy -v
 
 workflows:
   build-and-test:
     jobs:
-      - build-and-test:
+      - build-server:
+          context: aws-playground
+      - build-client:
           context: aws-playground
