@@ -140,6 +140,10 @@ workflows:
           context: aws-playground
           requires:
             - test-server
+          filters:
+            branches:
+              only: master
+
       - build-client:
           context: aws-playground
       - test-client:
@@ -150,3 +154,6 @@ workflows:
           context: aws-playground
           requires:
             - test-client
+          filters:
+            branches:
+              only: master
