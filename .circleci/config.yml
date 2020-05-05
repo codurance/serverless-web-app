@@ -21,7 +21,7 @@ jobs:
       - run:
           name: test-server
           command: |
-                echo $PWD
+                cd ./server
                 npm test
       - run:
           name: deploy-server
@@ -35,7 +35,9 @@ jobs:
                 npm ci
       - run:
           name: test-client
-          command: npm test
+          command: |
+                cd ./client
+                npm test
       - run:
           name: deploy-client
           command: |
