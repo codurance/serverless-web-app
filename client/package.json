@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "test": "jest"
   },
   "dependencies": {
     "next": "9.3.6",
@@ -13,7 +14,19 @@
     "react-dom": "16.13.1"
   },
   "devDependencies": {
+    "@types/jest": "^25.2.1",
+    "@types/react": "^16.9.34",
+    "jest": "^25.5.4",
     "serverless": "^1.69.0",
-    "serverless-next.js": "^1.11.1-alpha.0"
+    "serverless-next.js": "^1.11.1",
+    "ts-jest": "^25.4.0"
+  },
+  "jest": {
+    "roots": [
+      "<rootDir>/tests"
+    ],
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    }
   }
 }

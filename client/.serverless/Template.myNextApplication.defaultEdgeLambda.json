@@ -1,10 +1,10 @@
 {
   "name": "lb7no6-isil6ui",
-  "hash": "fBT52n6NAHGKoUt0AsG567kUrn/qytFJY9jHi1OtHYI=",
+  "hash": "jRR3iHGeWRJhuDUp6fqfZ/psW00yrRkkRN4ImDp1MsQ=",
   "description": "Default Lambda@Edge for Next CloudFront distribution",
   "memory": 512,
   "timeout": 10,
-  "code": "/home/alasdair/Codurance/serverless-web-app/client/.serverless_nextjs/default-lambda",
+  "code": "/Users/jfacchini/projects/codurance/serverless-web-app/client/.serverless_nextjs/default-lambda",
   "shims": [],
   "handler": "index.handler",
   "runtime": "nodejs10.x",

@@ -1,6 +1,8 @@
 {
   "compilerOptions": {
     "lib": ["es2017"],
+    "esModuleInterop": true,
+    "isolatedModules": true,
     "removeComments": true,
     "moduleResolution": "node",
     "noUnusedLocals": true,
