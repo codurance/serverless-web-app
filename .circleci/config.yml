@@ -18,11 +18,27 @@ jobs:
           command: |
                 cd ./server
                 npm ci
+  test-server:
+    executor:
+      name: serverless/default
+    steps:
+      - checkout
+      - aws-cli/setup:
+          configure-default-region: false
+      - serverless/setup
       - run:
           name: test-server
           command: |
                 cd ./server
                 npm test
+  deploy-server:
+    executor:
+      name: serverless/default
+    steps:
+      - checkout
+      - aws-cli/setup:
+          configure-default-region: false
+      - serverless/setup
       - run:
           name: deploy-server
           command: |
@@ -42,21 +58,61 @@ jobs:
           command: |
                 cd ./client
                 npm ci
+  test-client:
+    executor:
+      name: serverless/default
+    steps:
+      - checkout
+      - aws-cli/setup:
+          configure-default-region: false
+      - serverless/setup
       - run:
           name: test-client
           command: |
                 cd ./client
                 npm test
+  deploy-client:
+    executor:
+      name: serverless/default
+    steps:
+      - checkout
+      - aws-cli/setup:
+          configure-default-region: false
+      - serverless/setup
       - run:
           name: deploy-client
           command: |
                 cd ./client
                 serverless -v
 
+# workflows:
+#   build-and-test:
+#     jobs:
+#       - build-server:
+#           context: aws-playground
+#       - build-client:
+#           context: aws-playground
+
 workflows:
-  build-and-test:
+  main:
     jobs:
       - build-server:
           context: aws-playground
+      - test-server:
+          context: aws-playground
+          requires:
+            - build-server
+      - deploy-server:
+          context: aws-playground
+          requires:
+            - test-server
       - build-client:
           context: aws-playground
+      - test-client:
+          context: aws-playground
+          requires:
+            - build-client
+      - deploy-client:
+          context: aws-playground
+          requires:
+            - test-client
