@@ -19,6 +19,9 @@ jobs:
                 cd ./server
                 npm ci
       - run:
+          name: test-server
+          command: npm test
+      - run:
           name: deploy-server
           command: |
                 cd ./server
