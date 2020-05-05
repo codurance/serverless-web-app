@@ -5,7 +5,7 @@
   "region": "us-east-1",
   "origins": [
     {
-      "url": "http://lb7no6-5gp3urb.s3.amazonaws.com",
+      "url": "http://lb7no6-tol0ms.s3.amazonaws.com",
       "private": true,
       "pathPatterns": {
         "_next/*": {
@@ -13,21 +13,6 @@
         },
         "static/*": {
           "ttl": 86400
-        },
-        "api/*": {
-          "ttl": 0,
-          "allowedHttpMethods": [
-            "HEAD",
-            "DELETE",
-            "POST",
-            "GET",
-            "OPTIONS",
-            "PUT",
-            "PATCH"
-          ],
-          "lambda@edge": {
-            "origin-request": "arn:aws:lambda:us-east-1:300563897675:function:lb7no6-um8rmve:1"
-          }
         }
       }
     }
@@ -43,7 +28,7 @@
       "queryString": true
     },
     "lambda@edge": {
-      "origin-request": "arn:aws:lambda:us-east-1:300563897675:function:lb7no6-isil6ui:1"
+      "origin-request": "arn:aws:lambda:us-east-1:300563897675:function:lb7no6-isil6ui:6"
     }
   }
 }

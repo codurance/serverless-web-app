@@ -51,8 +51,7 @@ jobs:
           name: deploy-client
           command: |
                 cd ./client
-                pwd
-                serverless deploy -v
+                serverless -v
 
 workflows:
   build-and-test:
