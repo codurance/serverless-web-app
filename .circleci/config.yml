@@ -11,23 +11,23 @@ jobs:
     steps:
       - checkout
       - aws-cli/setup:
-        configure-default-region: false
+          configure-default-region: false
       - serverless/setup
       - run:
           name: install-server
           command: |
-            cd ./server
-            npm ci
+                cd ./server
+                npm ci
       - run:
           name: test-server
           command: |
-            cd ./server
-            npm test
+                cd ./server
+                npm test
       - run:
           name: deploy-server
           command: |
-            cd ./server
-            serverless deploy -v
+                cd ./server
+                serverless deploy -v
 
   build-client:
     executor:
