@@ -4,6 +4,34 @@ orbs:
   serverless: circleci/serverless-framework@1.0.1
   aws-cli: circleci/aws-cli@1.0.0
 
+# Set working directory
+server_working_directory: &server_working_directory ~/project/server
+client_working_directory: &client_working_directory ~/project/client
+
+# Cache Key where the repository is saved, to share between different jobs
+server_cache_key: &server_cache_key v1-server-{{ .Branch }}-{{ .Revision }}
+client_cache_key: &client_cache_key v1-client-{{ .Branch }}-{{ .Revision }}
+
+# Step to save repository from cache
+save_cache_server: &save_cache_server
+  save_cache:
+    key: *server_cache_key
+    paths:
+      - *server_working_directory
+save_cache_client: &save_cache_client
+  save_cache:
+    key: *client_cache_key
+    paths:
+      - *client_working_directory
+
+# Step to restore repository from cache
+restore_cache_server: &restore_cache_server
+  restore_cache:
+    key: *server_cache_key
+restore_cache_client: &restore_cache_client
+  restore_cache:
+    key: *client_cache_key
+
 jobs:
   build-server:
     executor:
@@ -18,11 +46,30 @@ jobs:
           command: |
                 cd ./server
                 npm ci
+      - *save_cache_server
+
+  test-server:
+    executor:
+      name: serverless/default
+    steps:
+      - *restore_cache_server
+      - aws-cli/setup:
+          configure-default-region: false
+      - serverless/setup
       - run:
           name: test-server
           command: |
                 cd ./server
                 npm test
+
+  deploy-server:
+    executor:
+      name: serverless/default
+    steps:
+      - *restore_cache_server
+      - aws-cli/setup:
+          configure-default-region: false
+      - serverless/setup
       - run:
           name: deploy-server
           command: |
@@ -42,21 +89,71 @@ jobs:
           command: |
                 cd ./client
                 npm ci
+      - *save_cache_client
+
+  test-client:
+    executor:
+      name: serverless/default
+    steps:
+      - *restore_cache_client
+      - aws-cli/setup:
+          configure-default-region: false
+      - serverless/setup
       - run:
           name: test-client
           command: |
                 cd ./client
                 npm test
+
+  deploy-client:
+    executor:
+      name: serverless/default
+    steps:
+      - *restore_cache_client
+      - aws-cli/setup:
+          configure-default-region: false
+      - serverless/setup
       - run:
           name: deploy-client
           command: |
                 cd ./client
                 serverless -v
 
+# workflows:
+#   build-and-test:
+#     jobs:
+#       - build-server:
+#           context: aws-playground
+#       - build-client:
+#           context: aws-playground
+
 workflows:
-  build-and-test:
+  main:
     jobs:
       - build-server:
           context: aws-playground
+      - test-server:
+          context: aws-playground
+          requires:
+            - build-server
+      - deploy-server:
+          context: aws-playground
+          requires:
+            - test-server
+          filters:
+            branches:
+              only: master
+
       - build-client:
           context: aws-playground
+      - test-client:
+          context: aws-playground
+          requires:
+            - build-client
+      - deploy-client:
+          context: aws-playground
+          requires:
+            - test-client
+          filters:
+            branches:
+              only: master
