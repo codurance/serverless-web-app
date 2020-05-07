@@ -1,5 +1,5 @@
 import React from "react";
 
 export default function LoginForm() {
-  return (<div>a</div>);
+  return (<div data-test="errorLabel">a</div>);
 };
