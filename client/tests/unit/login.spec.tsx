@@ -1,11 +1,7 @@
 import React from "react";
 import {mount} from "enzyme";
-import LoginForm from "../../components/loginForm";
+import LoginForm, { Credentials } from "../../components/loginForm";
 
-interface Credentials {
-  username?: string;
-  password?: string;
-}
 
 describe("Login form component", () => {
   const wrapper = mount(<LoginForm />);
