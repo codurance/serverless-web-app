@@ -11,11 +11,12 @@ describe("Incrementor", () => {
     });
 
     describe('when I click increment button', () => {
-        const incrementButton = wrapper.find('[data-test=incrementButton]').first();
+        const incrementButton = wrapper.find('[data-test="incrementButton"]').first();
 
         it('should increment the label by 1', () => {
             incrementButton.simulate("click");
 
+            const label = wrapper.find('.numberLabel').at(0);
             expect(label.text()).toEqual("1");
         });
     });
