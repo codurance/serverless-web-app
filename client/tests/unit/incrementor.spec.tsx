@@ -4,7 +4,7 @@ import Incrementor from "../../components/incrementor";
 
 describe("Incrementor", () => {
     const wrapper = mount(<Incrementor />);
-    const label = wrapper.find('.numberLabel').first();
+    const label = wrapper.find('.numberLabel').at(0);
 
     it("should start with 0", () => {
         expect(label.text()).toEqual("0");
@@ -16,7 +16,6 @@ describe("Incrementor", () => {
         it('should increment the label by 1', () => {
             incrementButton.simulate("click");
 
-            const label = wrapper.find('.numberLabel').at(0);
             expect(label.text()).toEqual("1");
         });
     });
