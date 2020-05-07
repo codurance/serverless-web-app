@@ -14,16 +14,19 @@ describe("Login form component", () => {
       expect(errorLabel.text()).toEqual("");
     });
 
-    it.each([
-      [{}, "Please input your credentials"],
-      [{username: "Jim"}, "Please input your password"]
-    ])("should display an error: Please input your credentials", (credentials: Credentials, error) => {
-      submitButton.simulate('click');
+    const noValues: Credentials = {
+      password: "",
+      username: ""
+    };
 
-      if (credentials.username) {
-        const usernameField = wrapper.find("[data-test='usernameInput']").at(0);
-        usernameField.simulate("change", {target: {name: "value", value: credentials.username}});
-      }
+    it.each([
+      ["Please input your credentials", noValues],
+      ["Please input your password", {...noValues, username: "Jim"}]
+    ])("should display an error: %s", (error, credentials: Credentials) => {
+      const usernameField = wrapper.find("[data-test='usernameInput']").at(0);
+      usernameField.simulate("change", {target: {name: "value", value: credentials.username}});
+
+      submitButton.simulate('click');
 
       expect(errorLabel.text()).toEqual(error);
     });

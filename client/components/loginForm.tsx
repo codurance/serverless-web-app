@@ -1,28 +1,27 @@
-import React, {useState, ChangeEvent} from "react";
+import React, {ChangeEvent, useState} from "react";
 
 export interface Credentials {
-  username?: string;
-  password?: string;
+  username: string;
+  password: string;
 }
 
 export default function LoginForm() {
+  const initialCredentials: Credentials = {
+    password: "",
+    username: ""
+  };
+
   const [errorText, setErrorText] = useState("");
-  const [username, setUsername] = useState("");
-  // const [password, setPassword] = useState("");
+  const [credentials, setCredentials] = useState(initialCredentials);
 
   const loginUser = (e) => {
-    console.log(username);
-    // const usernameIsDefined = username;
-    const passwordIsDefined = "";
-    // const credentialsDefined = usernameIsDefined && passwordIsDefined;
+    if (!credentials.username) {
+      setErrorText("Please input your credentials");
+      e.preventDefault();
+      return;
+    }
 
-    // if (!credentialsDefined) {
-    //   setErrorText("Please input your credentials");
-    //   e.preventDefault();
-    //   return;
-    // }
-
-    if(!passwordIsDefined) {
+    if(!credentials.password) {
       setErrorText("Please input your password");
       e.preventDefault();
       return;
@@ -30,10 +29,11 @@ export default function LoginForm() {
   }
 
   const updateUsername = (event: ChangeEvent<HTMLInputElement>) => {
-    const inputUsername = event.target.value;
-    console.log(inputUsername);
-    setUsername(inputUsername);
-    console.log(username);
+    const username = event.target.value;
+    setCredentials({
+      ...credentials,
+      username
+    });
   }
 
   // function updatePassword(event: ChangeEvent<HTMLInputElement>) {
@@ -42,7 +42,7 @@ export default function LoginForm() {
   // }
   return (<>
     <div data-test="errorLabel">{errorText}</div>
-    <input data-test="usernameInput" type="text" value={username} onChange={updateUsername} />
+    <input data-test="usernameInput" type="text" value={credentials.username} onChange={updateUsername} />
     <button data-test="submitButton" onClick={loginUser}>Login</button>
   </>);
 };
