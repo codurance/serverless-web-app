@@ -10,6 +10,11 @@ export default function FizzBuzz() {
 
     const handleCalculateOnClick = (_event): void => {
         const inputNumber = parseInt(input);
+        if(inputNumber % 3 == 0 && inputNumber % 5 == 0) {
+            setOutput("Fizz Buzz");
+            return;
+        }
+
         if(inputNumber % 3 == 0) {
             setOutput("Fizz");
             return;

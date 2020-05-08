@@ -46,4 +46,14 @@ describe("FizzBuzz", () => {
         const outputArea = wrapper.find("[data-test='fizzBuzzOutput']").at(0);
         expect(outputArea.text()).toEqual("Buzz");
     })
+
+    it.each(["15", "45", "60"])("should output Fizz Buzz when a multiple of five and three (%d) is entered", (inputValue: string) => {
+        inputArea.simulate("change", { target: {name: "value", value: inputValue}});
+
+        const calculateButton = wrapper.find("[data-test='fizzBuzzCalculateButton']").at(0);
+        calculateButton.simulate("click");
+
+        const outputArea = wrapper.find("[data-test='fizzBuzzOutput']").at(0);
+        expect(outputArea.text()).toEqual("Fizz Buzz");
+    })
 })
