@@ -1,4 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 export default function FizzBuzz() {
-    return(<div data-test="fizzBuzzOutput"></div>);
+    const [input, setInput] = useState("");
+    const [output, setOutput] = useState("");
+
+    const handleInputOnChange = (event): void => {
+        const inputText: string = event.target.value;
+        setInput(inputText);
+    }
+
+    const handleCalculateOnClick = (_event): void => {
+        const inputNumber = parseInt(input);
+        if(inputNumber % 3 == 0) {
+            setOutput("Fizz");
+            return;
+        }
+
+        setOutput(input);
+    }
+    return(
+        <div>
+            <input data-test="fizzBuzzInput" type="text" onChange={handleInputOnChange}></input>
+            <div data-test="fizzBuzzOutput">{ output }</div>
+            <button data-test="fizzBuzzCalculateButton" onClick={handleCalculateOnClick}>Calculate</button>
+        </div>
+    );
 }
