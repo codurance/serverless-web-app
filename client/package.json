@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "jest"
+    "test": "jest",
+    "test:unit": "jest unit"
   },
   "dependencies": {
     "next": "9.3.6",
