@@ -15,6 +15,11 @@ export default function FizzBuzz() {
             return;
         }
 
+        if(inputNumber % 5 == 0) {
+            setOutput("Buzz");
+            return;
+        }
+
         setOutput(input);
     }
     return(
