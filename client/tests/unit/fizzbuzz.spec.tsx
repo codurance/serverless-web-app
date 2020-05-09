@@ -56,4 +56,14 @@ describe("FizzBuzz", () => {
         const outputArea = wrapper.find("[data-test='fizzBuzzOutput']").at(0);
         expect(outputArea.text()).toEqual("Fizz Buzz");
     })
+
+    it("should handle multiple numbers in a string", () => {
+        inputArea.simulate("change", { target: {name: "value", value: "1, 2, 3, 5, 15"}});
+
+        const calculateButton = wrapper.find("[data-test='fizzBuzzCalculateButton']").at(0);
+        calculateButton.simulate("click");
+
+        const outputArea = wrapper.find("[data-test='fizzBuzzOutput']").at(0);
+        expect(outputArea.text()).toEqual("1, 2, Fizz, Buzz, Fizz Buzz");
+    });
 })

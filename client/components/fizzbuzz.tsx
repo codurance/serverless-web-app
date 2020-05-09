@@ -1,32 +1,40 @@
-import React, { useState } from "react";
+import React, { useState, ChangeEvent } from "react";
 export default function FizzBuzz() {
     const [input, setInput] = useState("");
     const [output, setOutput] = useState("");
 
-    const handleInputOnChange = (event): void => {
+    const handleInputOnChange = (event: ChangeEvent<HTMLInputElement>): void => {
         const inputText: string = event.target.value;
         setInput(inputText);
     }
 
-    const handleCalculateOnClick = (_event): void => {
-        const inputNumber = parseInt(input);
+    const handleCalculateOnClick = (): void => {
+        let output = [];
+
+        input.split(", ").forEach((n) => {
+            const inputNumber = parseInt(n);
+            output.push(processNumber(inputNumber))
+        });
+
+        setOutput(output.join(", "));
+    }
+
+    const processNumber = (inputNumber: number) => {
         if(inputNumber % 3 == 0 && inputNumber % 5 == 0) {
-            setOutput("Fizz Buzz");
-            return;
+            return "Fizz Buzz";
         }
 
         if(inputNumber % 3 == 0) {
-            setOutput("Fizz");
-            return;
+            return "Fizz";
         }
 
         if(inputNumber % 5 == 0) {
-            setOutput("Buzz");
-            return;
+            return "Buzz";
         }
 
-        setOutput(input);
+        return inputNumber;
     }
+
     return(
         <div>
             <input data-test="fizzBuzzInput" type="text" onChange={handleInputOnChange}></input>
