@@ -13,6 +13,12 @@ export default function MarsRover() {
         if(inputCommands === "R") {
             setRoverImage("/public/img/rover_east.jpg");
         }
+        if(inputCommands === "R,R") {
+            setRoverImage("/public/img/rover_south.jpg");
+        }
+        if(inputCommands === "R,R,R") {
+            setRoverImage("/public/img/rover_west.jpg");
+        }
     }
     return (
         <div>
