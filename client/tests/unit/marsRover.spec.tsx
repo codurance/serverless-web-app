@@ -47,4 +47,17 @@ describe("Mars Rover", () => {
         const grid_0_0 = wrapper.find(".grid-location").at(0);
         expect(grid_0_0.contains(<img src="/public/img/rover_west.jpg" />)).toBe(true);
     })
+
+    it("should rotate the rover right four times to face north", () => {
+        const wrapper = shallow(<MarsRover />);
+
+        const commandInput = wrapper.find("[data-test='commandInput']").at(0);
+        commandInput.simulate("change", {target: {name: "value", value: "R,R,R,R"}});
+
+        const executeButton = wrapper.find("[data-test='executeButton']").at(0);
+        executeButton.simulate("click");
+
+        const grid_0_0 = wrapper.find(".grid-location").at(0);
+        expect(grid_0_0.contains(<img src="/public/img/rover_north.jpg" />)).toBe(true);
+    })
 })
