@@ -17,6 +17,9 @@ export default function MarsRover() {
         if(inputCommands === "L,L") {
             setRoverImage("/public/img/rover_south.jpg");
         }
+        if(inputCommands === "L,L,L") {
+            setRoverImage("/public/img/rover_east.jpg");
+        }
     }
     return (
         <div>
