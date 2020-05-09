@@ -10,108 +10,104 @@ describe("Mars Rover", () => {
     });
 
     describe("when facing north at 0,0", () => {
-        it("should rotate the rover right to face east", () => {
-            const wrapper = shallow(<MarsRover />);
+        describe("when rotating right", () => {
+            let wrapper;
+            let commandInput;
+            
+            beforeEach(() => {
+                wrapper = shallow(<MarsRover />);
+                commandInput = wrapper.find("[data-test='commandInput']").at(0);
+            });
 
-            const commandInput = wrapper.find("[data-test='commandInput']").at(0);
-            commandInput.simulate("change", {target: {name: "value", value: "R"}});
+            it("should rotate the rover right to face east", () => {
+                commandInput.simulate("change", {target: {name: "value", value: "R"}});
 
-            const executeButton = wrapper.find("[data-test='executeButton']").at(0);
-            executeButton.simulate("click");
+                const executeButton = wrapper.find("[data-test='executeButton']").at(0);
+                executeButton.simulate("click");
 
-            const grid_0_0 = wrapper.find(".grid-location").at(0);
-            expect(grid_0_0.contains(<img src="/public/img/rover_east.jpg" />)).toBe(true);
+                const grid_0_0 = wrapper.find(".grid-location").at(0);
+                expect(grid_0_0.contains(<img src="/public/img/rover_east.jpg" />)).toBe(true);
+            });
+
+            it("should rotate the rover right twice to face south", () => {
+                commandInput.simulate("change", {target: {name: "value", value: "R,R"}});
+
+                const executeButton = wrapper.find("[data-test='executeButton']").at(0);
+                executeButton.simulate("click");
+
+                const grid_0_0 = wrapper.find(".grid-location").at(0);
+                expect(grid_0_0.contains(<img src="/public/img/rover_south.jpg" />)).toBe(true);
+            });
+
+            it("should rotate the rover right three times to face west", () => {
+                commandInput.simulate("change", {target: {name: "value", value: "R,R,R"}});
+
+                const executeButton = wrapper.find("[data-test='executeButton']").at(0);
+                executeButton.simulate("click");
+
+                const grid_0_0 = wrapper.find(".grid-location").at(0);
+                expect(grid_0_0.contains(<img src="/public/img/rover_west.jpg" />)).toBe(true);
+            });
+
+            it("should rotate the rover right four times to face north", () => {
+                commandInput.simulate("change", {target: {name: "value", value: "R,R,R,R"}});
+
+                const executeButton = wrapper.find("[data-test='executeButton']").at(0);
+                executeButton.simulate("click");
+
+                const grid_0_0 = wrapper.find(".grid-location").at(0);
+                expect(grid_0_0.contains(<img src="/public/img/rover_north.jpg" />)).toBe(true);
+            });
         });
 
-        it("should rotate the rover right twice to face south", () => {
-            const wrapper = shallow(<MarsRover />);
+        describe("when rotating left", () => {
+            let wrapper;
+            let commandInput;
+            
+            beforeEach(() => {
+                wrapper = shallow(<MarsRover />);
+                commandInput = wrapper.find("[data-test='commandInput']").at(0);
+            });
 
-            const commandInput = wrapper.find("[data-test='commandInput']").at(0);
-            commandInput.simulate("change", {target: {name: "value", value: "R,R"}});
+            it("should rotate the rover left to face west", () => {
+                commandInput.simulate("change", {target: {name: "value", value: "L"}});
 
-            const executeButton = wrapper.find("[data-test='executeButton']").at(0);
-            executeButton.simulate("click");
+                const executeButton = wrapper.find("[data-test='executeButton']").at(0);
+                executeButton.simulate("click");
 
-            const grid_0_0 = wrapper.find(".grid-location").at(0);
-            expect(grid_0_0.contains(<img src="/public/img/rover_south.jpg" />)).toBe(true);
-        });
+                const grid_0_0 = wrapper.find(".grid-location").at(0);
+                expect(grid_0_0.contains(<img src="/public/img/rover_west.jpg" />)).toBe(true);
+            });
 
-        it("should rotate the rover right three times to face west", () => {
-            const wrapper = shallow(<MarsRover />);
+            it("should rotate the rover left twice to face south", () => {
+                commandInput.simulate("change", {target: {name: "value", value: "L,L"}});
 
-            const commandInput = wrapper.find("[data-test='commandInput']").at(0);
-            commandInput.simulate("change", {target: {name: "value", value: "R,R,R"}});
+                const executeButton = wrapper.find("[data-test='executeButton']").at(0);
+                executeButton.simulate("click");
 
-            const executeButton = wrapper.find("[data-test='executeButton']").at(0);
-            executeButton.simulate("click");
+                const grid_0_0 = wrapper.find(".grid-location").at(0);
+                expect(grid_0_0.contains(<img src="/public/img/rover_south.jpg" />)).toBe(true);
+            });
 
-            const grid_0_0 = wrapper.find(".grid-location").at(0);
-            expect(grid_0_0.contains(<img src="/public/img/rover_west.jpg" />)).toBe(true);
-        });
+            it("should rotate the rover left three times to face east", () => {
+                commandInput.simulate("change", {target: {name: "value", value: "L,L,L"}});
 
-        it("should rotate the rover right four times to face north", () => {
-            const wrapper = shallow(<MarsRover />);
+                const executeButton = wrapper.find("[data-test='executeButton']").at(0);
+                executeButton.simulate("click");
 
-            const commandInput = wrapper.find("[data-test='commandInput']").at(0);
-            commandInput.simulate("change", {target: {name: "value", value: "R,R,R,R"}});
+                const grid_0_0 = wrapper.find(".grid-location").at(0);
+                expect(grid_0_0.contains(<img src="/public/img/rover_east.jpg" />)).toBe(true);
+            });
 
-            const executeButton = wrapper.find("[data-test='executeButton']").at(0);
-            executeButton.simulate("click");
+            it("should rotate the rover left four times to face north", () => {
+                commandInput.simulate("change", {target: {name: "value", value: "L,L,L,L"}});
 
-            const grid_0_0 = wrapper.find(".grid-location").at(0);
-            expect(grid_0_0.contains(<img src="/public/img/rover_north.jpg" />)).toBe(true);
-        });
+                const executeButton = wrapper.find("[data-test='executeButton']").at(0);
+                executeButton.simulate("click");
 
-        it("should rotate the rover left to face west", () => {
-            const wrapper = shallow(<MarsRover />);
-
-            const commandInput = wrapper.find("[data-test='commandInput']").at(0);
-            commandInput.simulate("change", {target: {name: "value", value: "L"}});
-
-            const executeButton = wrapper.find("[data-test='executeButton']").at(0);
-            executeButton.simulate("click");
-
-            const grid_0_0 = wrapper.find(".grid-location").at(0);
-            expect(grid_0_0.contains(<img src="/public/img/rover_west.jpg" />)).toBe(true);
-        });
-
-        it("should rotate the rover left twice to face south", () => {
-            const wrapper = shallow(<MarsRover />);
-
-            const commandInput = wrapper.find("[data-test='commandInput']").at(0);
-            commandInput.simulate("change", {target: {name: "value", value: "L,L"}});
-
-            const executeButton = wrapper.find("[data-test='executeButton']").at(0);
-            executeButton.simulate("click");
-
-            const grid_0_0 = wrapper.find(".grid-location").at(0);
-            expect(grid_0_0.contains(<img src="/public/img/rover_south.jpg" />)).toBe(true);
-        });
-
-        it("should rotate the rover left three times to face east", () => {
-            const wrapper = shallow(<MarsRover />);
-
-            const commandInput = wrapper.find("[data-test='commandInput']").at(0);
-            commandInput.simulate("change", {target: {name: "value", value: "L,L,L"}});
-
-            const executeButton = wrapper.find("[data-test='executeButton']").at(0);
-            executeButton.simulate("click");
-
-            const grid_0_0 = wrapper.find(".grid-location").at(0);
-            expect(grid_0_0.contains(<img src="/public/img/rover_east.jpg" />)).toBe(true);
-        });
-
-        it("should rotate the rover left four times to face north", () => {
-            const wrapper = shallow(<MarsRover />);
-
-            const commandInput = wrapper.find("[data-test='commandInput']").at(0);
-            commandInput.simulate("change", {target: {name: "value", value: "L,L,L,L"}});
-
-            const executeButton = wrapper.find("[data-test='executeButton']").at(0);
-            executeButton.simulate("click");
-
-            const grid_0_0 = wrapper.find(".grid-location").at(0);
-            expect(grid_0_0.contains(<img src="/public/img/rover_north.jpg" />)).toBe(true);
+                const grid_0_0 = wrapper.find(".grid-location").at(0);
+                expect(grid_0_0.contains(<img src="/public/img/rover_north.jpg" />)).toBe(true);
+            });
         });
     });
 });
