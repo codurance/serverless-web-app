@@ -10,15 +10,7 @@ export default function MarsRover() {
     };
 
     const handleExecuteButtonOnClick = (_event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        if(inputCommands === "R") {
-            setRoverImage("/public/img/rover_east.jpg");
-        }
-        if(inputCommands === "R,R") {
-            setRoverImage("/public/img/rover_south.jpg");
-        }
-        if(inputCommands === "R,R,R") {
-            setRoverImage("/public/img/rover_west.jpg");
-        }
+        executeRightTurn(inputCommands, setRoverImage);
         if(inputCommands === "L") {
             setRoverImage("/public/img/rover_west.jpg");
         }
@@ -34,3 +26,15 @@ export default function MarsRover() {
         </div>
     );
 };
+
+function executeRightTurn(inputCommands: string, setRoverImage: React.Dispatch<React.SetStateAction<string>>) {
+    if (inputCommands === "R") {
+        setRoverImage("/public/img/rover_east.jpg");
+    }
+    if (inputCommands === "R,R") {
+        setRoverImage("/public/img/rover_south.jpg");
+    }
+    if (inputCommands === "R,R,R") {
+        setRoverImage("/public/img/rover_west.jpg");
+    }
+}
