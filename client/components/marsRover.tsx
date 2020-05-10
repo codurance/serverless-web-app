@@ -34,6 +34,9 @@ export default function MarsRover() {
                         x = 0;
                     }
                 }
+                if(direction === 'W') {
+                    x-=1;
+                }
             }
         };
 
