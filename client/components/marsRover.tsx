@@ -27,42 +27,53 @@ export default function MarsRover() {
         };
 
         setRoverLocation({x, y, direction});
+
+        updateRoverImage(direction);
+    }
+
+    function updateRoverImage(direction: string) {
+        switch (direction) {
+            case 'N':
+                setRoverImage("/public/img/rover_north.jpg");
+                break;
+            case 'E':
+                setRoverImage("/public/img/rover_east.jpg");
+                break;
+            case 'S':
+                setRoverImage("/public/img/rover_south.jpg");
+                break;
+            case 'W':
+                setRoverImage("/public/img/rover_west.jpg");
+                break;
+        }
     }
 
     function executeRightTurn(direction) {
         if(direction === 'N') {
-            setRoverImage("/public/img/rover_east.jpg");
             return 'E';
         }
         if(direction === 'E') {
-            setRoverImage("/public/img/rover_south.jpg");
             return 'S';
         }
         if(direction === 'S') {
-            setRoverImage("/public/img/rover_west.jpg");
             return 'W';
         }
         if(direction === 'W') {
-            setRoverImage("/public/img/rover_north.jpg");
             return 'N';
         }
     }
 
     function executeLeftTurn(direction) {
         if(direction === 'N') {
-            setRoverImage("/public/img/rover_west.jpg");
             return 'W';
         }
         if(direction === 'W') {
-            setRoverImage("/public/img/rover_south.jpg");
             return 'S';
         }
         if(direction === 'S') {
-            setRoverImage("/public/img/rover_east.jpg");
             return 'E';
         }
         if(direction === 'E') {
-            setRoverImage("/public/img/rover_north.jpg");
             return 'N';
         }
     }
