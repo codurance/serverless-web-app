@@ -5,7 +5,7 @@ import MarsRover from "../../components/marsRover";
 describe("Mars Rover", () => {
     it("should initialise the rover at 0,0,N", () => {
         const wrapper = shallow(<MarsRover />);
-        const grid_0_0 = wrapper.find(".grid-location").at(0);
+        const grid_0_0 = wrapper.find(".grid-location").at(90);
         expect(grid_0_0.contains(<img src="/public/img/rover_north.jpg" />)).toBe(true);
     });
 
@@ -25,7 +25,7 @@ describe("Mars Rover", () => {
                 const executeButton = wrapper.find("[data-test='executeButton']").at(0);
                 executeButton.simulate("click");
 
-                const grid_0_0 = wrapper.find(".grid-location").at(0);
+                const grid_0_0 = wrapper.find(".grid-location").at(90);
                 expect(grid_0_0.contains(<img src="/public/img/rover_east.jpg" />)).toBe(true);
             });
 
@@ -35,7 +35,7 @@ describe("Mars Rover", () => {
                 const executeButton = wrapper.find("[data-test='executeButton']").at(0);
                 executeButton.simulate("click");
 
-                const grid_0_0 = wrapper.find(".grid-location").at(0);
+                const grid_0_0 = wrapper.find(".grid-location").at(90);
                 expect(grid_0_0.contains(<img src="/public/img/rover_south.jpg" />)).toBe(true);
             });
 
@@ -45,7 +45,7 @@ describe("Mars Rover", () => {
                 const executeButton = wrapper.find("[data-test='executeButton']").at(0);
                 executeButton.simulate("click");
 
-                const grid_0_0 = wrapper.find(".grid-location").at(0);
+                const grid_0_0 = wrapper.find(".grid-location").at(90);
                 expect(grid_0_0.contains(<img src="/public/img/rover_west.jpg" />)).toBe(true);
             });
 
@@ -55,7 +55,7 @@ describe("Mars Rover", () => {
                 const executeButton = wrapper.find("[data-test='executeButton']").at(0);
                 executeButton.simulate("click");
 
-                const grid_0_0 = wrapper.find(".grid-location").at(0);
+                const grid_0_0 = wrapper.find(".grid-location").at(90);
                 expect(grid_0_0.contains(<img src="/public/img/rover_north.jpg" />)).toBe(true);
             });
         });
@@ -75,7 +75,7 @@ describe("Mars Rover", () => {
                 const executeButton = wrapper.find("[data-test='executeButton']").at(0);
                 executeButton.simulate("click");
 
-                const grid_0_0 = wrapper.find(".grid-location").at(0);
+                const grid_0_0 = wrapper.find(".grid-location").at(90);
                 expect(grid_0_0.contains(<img src="/public/img/rover_west.jpg" />)).toBe(true);
             });
 
@@ -85,7 +85,7 @@ describe("Mars Rover", () => {
                 const executeButton = wrapper.find("[data-test='executeButton']").at(0);
                 executeButton.simulate("click");
 
-                const grid_0_0 = wrapper.find(".grid-location").at(0);
+                const grid_0_0 = wrapper.find(".grid-location").at(90);
                 expect(grid_0_0.contains(<img src="/public/img/rover_south.jpg" />)).toBe(true);
             });
 
@@ -95,7 +95,7 @@ describe("Mars Rover", () => {
                 const executeButton = wrapper.find("[data-test='executeButton']").at(0);
                 executeButton.simulate("click");
 
-                const grid_0_0 = wrapper.find(".grid-location").at(0);
+                const grid_0_0 = wrapper.find(".grid-location").at(90);
                 expect(grid_0_0.contains(<img src="/public/img/rover_east.jpg" />)).toBe(true);
             });
 
@@ -105,8 +105,29 @@ describe("Mars Rover", () => {
                 const executeButton = wrapper.find("[data-test='executeButton']").at(0);
                 executeButton.simulate("click");
 
-                const grid_0_0 = wrapper.find(".grid-location").at(0);
+                const grid_0_0 = wrapper.find(".grid-location").at(90);
                 expect(grid_0_0.contains(<img src="/public/img/rover_north.jpg" />)).toBe(true);
+            });
+        });
+
+        describe("whem moving forwards", () => {
+            let wrapper;
+            let commandInput;
+            
+            beforeEach(() => {
+                wrapper = shallow(<MarsRover />);
+                commandInput = wrapper.find("[data-test='commandInput']").at(0);
+            });
+
+            it("should move the rover forward one grid square", () => {
+                commandInput.simulate("change", {target: {name: "value", value: "M"}});
+
+                const executeButton = wrapper.find("[data-test='executeButton']").at(0);
+                executeButton.simulate("click");
+
+                const grid_0_1 = wrapper.find(".grid-location").at(80);
+                console.log(grid_0_1.html());
+                expect(grid_0_1.contains(<img src="/public/img/rover_north.jpg" />)).toBe(true);
             });
         });
     });
