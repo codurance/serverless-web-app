@@ -188,6 +188,16 @@ describe("Mars Rover", () => {
                 const grid_0_1 = wrapper.find(".grid-location_0_0");
                 expect(grid_0_1.contains(<img src="/public/img/rover_south.jpg" />)).toBe(true);
             })
+
+            it("should rotate to face south, move south and teleport to 0,9", () => {
+                commandInput.simulate("change", {target: {name: "value", value: "L,L,M"}});
+
+                const executeButton = wrapper.find("[data-test='executeButton']").at(0);
+                executeButton.simulate("click");
+
+                const grid_0_1 = wrapper.find(".grid-location_0_9");
+                expect(grid_0_1.contains(<img src="/public/img/rover_south.jpg" />)).toBe(true);
+            })
         });
     });
 });
