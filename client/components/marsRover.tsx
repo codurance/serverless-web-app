@@ -40,6 +40,9 @@ export default function MarsRover() {
                         x = 9;
                     }
                 }
+                if(direction === 'S') {
+                    y -=1;
+                }
             }
         };
 
