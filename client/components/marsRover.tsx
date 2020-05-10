@@ -11,47 +11,15 @@ export default function MarsRover() {
     };
 
     const handleExecuteButtonOnClick = (_event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        let {x, y, direction} = roverLocation;
         let instructions = inputCommands.split(',');
+        let currentLocation = roverLocation;
 
         for(let instruction of instructions) {
-            if (instruction === "R") {
-                direction = executeRightTurn(direction);
-            }
-            if (instruction === "L") {
-                direction = executeLeftTurn(direction);
-            }
-            if(instruction === "M") {
-                if(direction === 'N'){
-                    y+=1;
-                    if(y > 9) {
-                        y = 0;
-                    }
-                }
-                if(direction === 'E'){
-                    x+=1;
-                    if(x > 9) {
-                        x = 0;
-                    }
-                }
-                if(direction === 'W') {
-                    x-=1;
-                    if(x < 0) {
-                        x = 9;
-                    }
-                }
-                if(direction === 'S') {
-                    y -=1;
-                    if(y < 0) {
-                        y = 9;
-                    }
-                }
-            }
+            currentLocation = executeInstruction(instruction, currentLocation);
         };
 
-        setRoverLocation({x, y, direction});
-
-        updateRoverImage(direction);
+        setRoverLocation(currentLocation);
+        updateRoverImage(currentLocation.direction);
     }
 
     function updateRoverImage(direction: string) {
@@ -71,35 +39,6 @@ export default function MarsRover() {
         }
     }
 
-    function executeRightTurn(direction) {
-        if(direction === 'N') {
-            return 'E';
-        }
-        if(direction === 'E') {
-            return 'S';
-        }
-        if(direction === 'S') {
-            return 'W';
-        }
-        if(direction === 'W') {
-            return 'N';
-        }
-    }
-
-    function executeLeftTurn(direction) {
-        if(direction === 'N') {
-            return 'W';
-        }
-        if(direction === 'W') {
-            return 'S';
-        }
-        if(direction === 'S') {
-            return 'E';
-        }
-        if(direction === 'E') {
-            return 'N';
-        }
-    }
 
     const grid = [];
 
@@ -123,3 +62,81 @@ export default function MarsRover() {
         </div>
     );
 };
+
+function executeInstruction(instruction: string, currentLocation: { x: number; y: number; direction: string;}) {
+    if (instruction === "R") {
+        currentLocation = executeRightTurn(currentLocation);
+    }
+    if (instruction === "L") {
+        currentLocation = executeLeftTurn(currentLocation);
+    }
+    if (instruction === "M") {
+        currentLocation = executeMoveForward(currentLocation);
+    }
+    return currentLocation;
+}
+
+function executeMoveForward(currentRoverLocation: { x: number; y: number; direction: string; }) {
+    let { x, y, direction } = currentRoverLocation;
+    if (direction === 'N') {
+        y += 1;
+        if (y > 9) {
+            y = 0;
+        }
+    }
+    if (direction === 'E') {
+        x += 1;
+        if (x > 9) {
+            x = 0;
+        }
+    }
+    if (direction === 'W') {
+        x -= 1;
+        if (x < 0) {
+            x = 9;
+        }
+    }
+    if (direction === 'S') {
+        y -= 1;
+        if (y < 0) {
+            y = 9;
+        }
+    }
+
+    return {x, y, direction};
+}
+
+
+function executeRightTurn(currentRoverLocation: {x: number; y: number; direction: string;}) {
+    let {direction} = currentRoverLocation
+    if(direction === 'N') {
+        return {...currentRoverLocation, direction: 'E'};
+    }
+    if(direction === 'E') {
+        return {...currentRoverLocation, direction: 'S'};
+    }
+    if(direction === 'S') {
+        return {...currentRoverLocation, direction: 'W'};
+    }
+    if(direction === 'W') {
+        return {...currentRoverLocation, direction: 'N'};
+    }
+    return currentRoverLocation;
+}
+
+function executeLeftTurn(currentRoverLocation: {x: number; y: number; direction: string;}) {
+    let {direction} = currentRoverLocation
+    if(direction === 'N') {
+        return {...currentRoverLocation, direction: 'W'};
+    }
+    if(direction === 'E') {
+        return {...currentRoverLocation, direction: 'N'};
+    }
+    if(direction === 'S') {
+        return {...currentRoverLocation, direction: 'E'};
+    }
+    if(direction === 'W') {
+        return {...currentRoverLocation, direction: 'S'};
+    }
+    return currentRoverLocation;
+}
