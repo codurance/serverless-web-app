@@ -159,13 +159,23 @@ describe("Mars Rover", () => {
                 expect(grid_0_1.contains(<img src="/public/img/rover_east.jpg" />)).toBe(true);
             })
 
-            it("should rotate right, move west", () => {
+            it("should rotate right and move west", () => {
                 commandInput.simulate("change", {target: {name: "value", value: "R,M,L,L,M"}});
 
                 const executeButton = wrapper.find("[data-test='executeButton']").at(0);
                 executeButton.simulate("click");
 
                 const grid_0_1 = wrapper.find(".grid-location_0_0");
+                expect(grid_0_1.contains(<img src="/public/img/rover_west.jpg" />)).toBe(true);
+            });
+
+            it("should rotate right, move forward and teleport to 9,0", () => {
+                commandInput.simulate("change", {target: {name: "value", value: "L,M"}});
+
+                const executeButton = wrapper.find("[data-test='executeButton']").at(0);
+                executeButton.simulate("click");
+
+                const grid_0_1 = wrapper.find(".grid-location_9_0");
                 expect(grid_0_1.contains(<img src="/public/img/rover_west.jpg" />)).toBe(true);
             });
         });
