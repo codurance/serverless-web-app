@@ -24,9 +24,15 @@ export default function MarsRover() {
             if(instruction === "M") {
                 if(direction === 'N'){
                     y+=1;
+                    if(y > 9) {
+                        y = 0;
+                    }
                 }
                 if(direction === 'E'){
                     x+=1;
+                    if(x > 9) {
+                        x = 0;
+                    }
                 }
             }
         };

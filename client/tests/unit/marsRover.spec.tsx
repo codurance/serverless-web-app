@@ -129,13 +129,13 @@ describe("Mars Rover", () => {
                 expect(grid_0_1.contains(<img src="/public/img/rover_north.jpg" />)).toBe(true);
             });
 
-            it("should move the rover forward twice", () => {
-                commandInput.simulate("change", {target: {name: "value", value: "M,M"}});
+            it("should move the rover forward ten times and teleport back to 0,0", () => {
+                commandInput.simulate("change", {target: {name: "value", value: "M,M,M,M,M,M,M,M,M,M"}});
 
                 const executeButton = wrapper.find("[data-test='executeButton']").at(0);
                 executeButton.simulate("click");
 
-                const grid_0_1 = wrapper.find(".grid-location_0_2");
+                const grid_0_1 = wrapper.find(".grid-location_0_0");
                 expect(grid_0_1.contains(<img src="/public/img/rover_north.jpg" />)).toBe(true);
             });
 
@@ -146,6 +146,16 @@ describe("Mars Rover", () => {
                 executeButton.simulate("click");
 
                 const grid_0_1 = wrapper.find(".grid-location_1_0");
+                expect(grid_0_1.contains(<img src="/public/img/rover_east.jpg" />)).toBe(true);
+            })
+
+            it("should move east 10 times and teleport back to 0,0", () => {
+                commandInput.simulate("change", {target: {name: "value", value: "R,M,M,M,M,M,M,M,M,M,M"}});
+
+                const executeButton = wrapper.find("[data-test='executeButton']").at(0);
+                executeButton.simulate("click");
+
+                const grid_0_1 = wrapper.find(".grid-location_0_0");
                 expect(grid_0_1.contains(<img src="/public/img/rover_east.jpg" />)).toBe(true);
             })
         });
