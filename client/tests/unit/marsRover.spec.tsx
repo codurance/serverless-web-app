@@ -119,7 +119,7 @@ describe("Mars Rover", () => {
                 commandInput = wrapper.find("[data-test='commandInput']").at(0);
             });
 
-            it("should move the rover forward one grid square", () => {
+            it("should move the rover forward one grid location", () => {
                 commandInput.simulate("change", {target: {name: "value", value: "M"}});
 
                 const executeButton = wrapper.find("[data-test='executeButton']").at(0);
@@ -128,6 +128,26 @@ describe("Mars Rover", () => {
                 const grid_0_1 = wrapper.find(".grid-location_0_1");
                 expect(grid_0_1.contains(<img src="/public/img/rover_north.jpg" />)).toBe(true);
             });
+
+            it("should move the rover forward twice", () => {
+                commandInput.simulate("change", {target: {name: "value", value: "M,M"}});
+
+                const executeButton = wrapper.find("[data-test='executeButton']").at(0);
+                executeButton.simulate("click");
+
+                const grid_0_1 = wrapper.find(".grid-location_0_2");
+                expect(grid_0_1.contains(<img src="/public/img/rover_north.jpg" />)).toBe(true);
+            });
+
+            it("should rotate right and move forward east one grid location", () => {
+                commandInput.simulate("change", {target: {name: "value", value: "R,M"}});
+
+                const executeButton = wrapper.find("[data-test='executeButton']").at(0);
+                executeButton.simulate("click");
+
+                const grid_0_1 = wrapper.find(".grid-location_1_0");
+                expect(grid_0_1.contains(<img src="/public/img/rover_east.jpg" />)).toBe(true);
+            })
         });
     });
 });

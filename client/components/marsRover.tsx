@@ -22,7 +22,12 @@ export default function MarsRover() {
                 direction = executeLeftTurn(direction);
             }
             if(instruction === "M") {
-                y+=1;
+                if(direction === 'N'){
+                    y+=1;
+                }
+                if(direction === 'E'){
+                    x+=1;
+                }
             }
         };
 
